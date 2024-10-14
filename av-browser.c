@@ -353,15 +353,13 @@ static void activate_cb(GtkApplication *app, Browser *browser_data) {
         "}"
     );
 
-    GdkDisplay *display = gtk_widget_get_display(browser_data->window);
     gtk_style_context_add_provider_for_display(
-        display,
+        gdk_display_get_default(),
         GTK_STYLE_PROVIDER(css_provider),
         GTK_STYLE_PROVIDER_PRIORITY_APPLICATION
     );
 
     g_object_unref(css_provider);
-    g_object_unref(display);
 
     GUPnPContext *context = gupnp_context_new_for_address(NULL, 0, 0, &error);
     if (error) {
